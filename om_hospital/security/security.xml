@@ -32,7 +32,4 @@
         <field name="groups" eval="[(4, ref('group_hospital_manager'))]"/>
     </record>
 
-
-
-
 </odoo>

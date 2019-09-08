@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-
-      <record id="action_patient_appointments" model="ir.actions.act_window">
-            <field name="name">Appointments</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">hospital.appointment</field>
-            <field name="domain">[('patient_id', '=', active_id)]</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="om_hospital.appointment_tree"/>
-            <field name="binding_model_id" ref="model_hospital_patient"/>
-      </record>
-
+    <!--inherit and add fields to sale order-->
     <record id="sale_order_inherit" model="ir.ui.view">
         <field name="name">sale.order.inherit</field>
         <field name="model">sale.order</field>
@@ -24,6 +13,7 @@
         </field>
     </record>
 
+    <!--action to open the appointments of the patient-->
     <record id="open_patient_appointments" model="ir.actions.act_window">
         <field name="name">Appointments</field>
         <field name="type">ir.actions.act_window</field>
@@ -107,8 +97,9 @@
                 </div>
             </form>
         </field>
-     </record>
+    </record>
 
+    <!--search view for the patient-->
     <record id="hospital_patient_search" model="ir.ui.view">
         <field name="name">hospital.patient.search</field>
         <field name="model">hospital.patient</field>
@@ -143,9 +134,11 @@
         </field>
     </record>
 
+    <!--creating menus-->
     <menuitem id="hospital_root" name="Hospital" sequence="1" web_icon="om_hospital,static/description/icon.png"/>
-    <menuitem id="hospital_patient" name="Patients" parent="hospital_root" action="action_patient"/>
-    <menuitem id="create_appointment" name="Create Appointment" parent="hospital_root" action="create_appointment_wizard"/>
+    <menuitem id="hospital_patient" name="Patients" parent="hospital_root" action="action_patient" sequence="10"/>
+    <menuitem id="create_appointment" name="Create Appointment" parent="hospital_root"
+              action="create_appointment_wizard" sequence="40"/>
 
 </odoo>
 

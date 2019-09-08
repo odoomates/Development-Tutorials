@@ -19,6 +19,7 @@ class HospitalAppointment(models.Model):
 
     @api.model
     def create(self, vals):
+        # overriding the create method to add the sequence
         if vals.get('name', _('New')) == _('New'):
             vals['name'] = self.env['ir.sequence'].next_by_code('hospital.appointment') or _('New')
         result = super(HospitalAppointment, self).create(vals)
@@ -26,6 +27,7 @@ class HospitalAppointment(models.Model):
 
     @api.multi
     def write(self, vals):
+        # overriding the write method of appointment model
         res = super(HospitalAppointment, self).write(vals)
         print("Test write function")
         # do as per the need

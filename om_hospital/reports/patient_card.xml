@@ -47,6 +47,7 @@
                                     </table>
                                 </div>
                             </center>
+                            <!--adding the barcode to the report-->
                             <table class="table table-bordered mb-0" style="border: 2px solid black;">
                                 <tr>
                                     <td class="text-center align-middle" style="height: 6rem">

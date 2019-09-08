@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <odoo>
 
+     <!--email template-->
      <data noupdate="1">
         <record id="patient_card_email_template" model="mail.template">
             <field name="name">Patient Card: Send by email</field>

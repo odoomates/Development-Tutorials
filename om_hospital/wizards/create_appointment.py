@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api,  _
+from odoo import models, fields
 
 
 class CreateAppointment(models.TransientModel):
     _name = 'create.appointment'
+    _description = 'Create Appointment Wizard'
 
     patient_id = fields.Many2one('hospital.patient', string="Patient")
     appointment_date = fields.Date(string="Appointment Date")
@@ -15,13 +16,14 @@ class CreateAppointment(models.TransientModel):
             'appointment_date': self.appointment_date,
             'notes': 'Created From The Wizard/Code'
         }
+        # adding a message to the chatter from code
         self.patient_id.message_post(body="Test string ", subject="Appointment Creation")
+        # creating appointments from the code
         self.env['hospital.appointment'].create(vals)
 
     def get_data(self):
-        print("Get Data Function")
+        # fetching data from the database table
         appointments = self.env['hospital.appointment'].search([])
-        print("appointments", appointments)
         for rec in appointments:
             print("Appointment Name", rec.name)
 

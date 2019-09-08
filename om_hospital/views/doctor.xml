@@ -49,7 +49,8 @@
         </field>
     </record>
 
-    <menuitem id="hospital_doctor" name="Doctor" parent="hospital_root" action="action_doctor" sequence="2"/>
+    <!--menu for the doctor-->
+    <menuitem id="hospital_doctor" name="Doctor" parent="hospital_root" action="action_doctor" sequence="20"/>
 
 </odoo>
 

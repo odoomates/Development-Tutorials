@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-
         <!-- Sequences for hospital.patient -->
         <record id="seq_hospital_patient" model="ir.sequence">
             <field name="name">Patient Sequence</field>
@@ -10,10 +9,6 @@
             <field name="padding">3</field>
             <field name="company_id" eval="False"/>
         </record>
-
-    </data>
-
-    <data noupdate="0">
 
         <!-- Sequences for hospital.appointment -->
         <record id="seq_hospital_appointment" model="ir.sequence">

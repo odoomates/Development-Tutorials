@@ -92,7 +92,19 @@
     </record>
 
     <menuitem id="hospital_appointment" name="Appointments" parent="hospital_root"
-              action="action_appointment" sequence="1"/>
+              action="action_appointment" sequence="30"/>
+
+    <!--adding action to action button-->
+    <record id="action_patient_appointments" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="domain">[('patient_id', '=', active_id)]</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="om_hospital.appointment_tree"/>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+    </record>
 
 </odoo>
 

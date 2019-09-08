@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
+
+        <!--creating patient record from code-->
         <record id="patient_xyz" model="hospital.patient">
-            <field name="patient_name">XYZ</field>
-            <field name="patient_age">55</field>
-            <field name="name">123456789</field>
+            <field name="patient_name">Odoo Mates</field>
+            <field name="patient_age">25</field>
+            <field name="name">9876543210</field>
             <field name="gender">fe_male</field>
-            <field name="notes">happy Sad</field>
+            <field name="notes">Your Odoo Mate</field>
         </record>
 
+        <!--creating appointment from the code-->
         <record id="appointment_xyz" model="hospital.appointment">
             <field name="patient_id" ref="patient_xyz"/>
-            <field name="notes">ABDEEEEEEEEEEEEEEE</field>
+            <field name="notes">Subcribe the channel</field>
         </record>
     </data>
 

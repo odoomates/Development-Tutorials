@@ -34,6 +34,7 @@ class HospitalPatient(models.Model):
 
     @api.multi
     def name_get(self):
+        # name get function for the model executes automatically
         res = []
         for rec in self:
             res.append((rec.id, '%s - %s' % (rec.name_seq, rec.patient_name)))
@@ -72,15 +73,31 @@ class HospitalPatient(models.Model):
 
     @api.onchange('doctor_id')
     def set_doctor_gender(self):
-        print("entring")
         for rec in self:
             if rec.doctor_id:
                 rec.doctor_gender = rec.doctor_id.gender
 
     def action_send_card(self):
+        # sending the patient report to patient via email
         template_id = self.env.ref('om_hospital.patient_card_email_template').id
         template = self.env['mail.template'].browse(template_id)
         template.send_mail(self.id, force_send=True)
+
+    @api.depends('patient_name')
+    def _compute_upper_name(self):
+        for rec in self:
+            rec.patient_name_upper = rec.patient_name.upper() if rec.patient_name else False
+
+    def _inverse_upper_name(self):
+        for rec in self:
+            rec.patient_name = rec.patient_name_upper.lower() if rec.patient_name_upper else False
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name_seq', _('New')) == _('New'):
+            vals['name_seq'] = self.env['ir.sequence'].next_by_code('hospital.patient.sequence') or _('New')
+        result = super(HospitalPatient, self).create(vals)
+        return result
 
     name = fields.Char(string="Contact Number")
     name_seq = fields.Char(string='Patient ID', required=True, copy=False, readonly=True,
@@ -107,21 +124,4 @@ class HospitalPatient(models.Model):
         ('fe_male', 'Female'),
     ], string="Doctor Gender")
     patient_name_upper = fields.Char(compute='_compute_upper_name', inverse='_inverse_upper_name')
-
-    @api.depends('patient_name')
-    def _compute_upper_name(self):
-        for rec in self:
-            rec.patient_name_upper = rec.patient_name.upper() if rec.patient_name else False
-
-    def _inverse_upper_name(self):
-        for rec in self:
-            rec.patient_name = rec.patient_name_upper.lower() if rec.patient_name_upper else False
-
-    @api.model
-    def create(self, vals):
-        if vals.get('name_seq', _('New')) == _('New'):
-            vals['name_seq'] = self.env['ir.sequence'].next_by_code('hospital.patient.sequence') or _('New')
-        result = super(HospitalPatient, self).create(vals)
-        return result
-
 
