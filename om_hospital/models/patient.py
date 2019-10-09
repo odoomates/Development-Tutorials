@@ -109,7 +109,7 @@ class HospitalPatient(models.Model):
     age_group = fields.Selection([
         ('major', 'Major'),
         ('minor', 'Minor'),
-    ], string="Age Group", compute='set_age_group')
+    ], string="Age Group", compute='set_age_group', store=True)
     patient_name = fields.Char(string='Name', required=True,  track_visibility="always")
     patient_age = fields.Integer('Age', track_visibility="always")
     notes = fields.Text(string="Registration Note")
