@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!--Modifying Existing Report in Odoo-->
+    <!--   https://www.youtube.com/watch?v=l2tvrpfOR1E&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=57  -->
     <template id="sale_report_inherit" inherit_id="sale.report_saleorder_document">
         <xpath expr="//div[@class='row mt32 mb32']" position="after">
              <div class="row mt32 mb32" id="test_inherit">

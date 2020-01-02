@@ -3,6 +3,7 @@
     <data noupdate="1">
 
         <!--creating scheduled action-->
+        <!--Video : https://www.youtube.com/watch?v=_P_AVSNr6uU-->
         <record id="test_patient_cron" model="ir.cron">
             <field name="name">Check Patient Status</field>
             <field name="model_id" ref="model_hospital_patient"/>
