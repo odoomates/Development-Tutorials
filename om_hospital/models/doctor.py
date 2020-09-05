@@ -7,6 +7,7 @@ from odoo import models, fields
 # https://www.youtube.com/watch?v=L6MxDR71_1k&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=2
 class HospitalDoctor(models.Model):
     _name = 'hospital.doctor'
+    _inherits = {'hospital.patient': 'related_patient_id'}
     _description = 'Doctor Record'
 
     name = fields.Char(string="Name", required=True)
@@ -15,5 +16,5 @@ class HospitalDoctor(models.Model):
         ('fe_male', 'Female'),
     ], default='male', string="Gender")
     user_id = fields.Many2one('res.users', string='Related User')
-    appointment_ids = fields.Many2many('hospital.appointment', 'hospital_patient_rel', 'doctor_id_rec', 'appointment_id',
-                                  string='Appointments')
+    patient_id = fields.Many2one('hospital.patient', string='Related Patient')
+    related_patient_id = fields.Many2one('hospital.patient', string='Related Patient ID')

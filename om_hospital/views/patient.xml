@@ -43,7 +43,6 @@
                     <button name="%(om_hospital.create_appointment_wizard)d" string="Create Appointment" type="action"
                             class="oe_highlight" context="{'default_patient_id': active_id}"/>
                     <button name="print_report" type="object" string="Print" class="oe_highlight"/>
-                    <button name="print_report_excel" type="object" string="Print Excel" class="oe_highlight"/>
                     <button name="action_send_card" type="object"  string="Send By Email" class="oe_highlight"
                             groups="om_hospital.group_hospital_manager"/>
                 </header>
@@ -70,13 +69,16 @@
                             <field name="gender"/>
                             <field name="doctor_id" attrs="{'invisible': [('gender','!=', 'male')]}"
                                    options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
-                            <field name="doctor_gender" readonly="1" force_save="1"/>
+                            <field name="doctor_gender"/>
                             <field name="user_id"/>
                             <!--<field name="xml_id"/>-->
                         </group>
                         <group>
                             <field name="name" groups="om_hospital.group_hospital_manager"/>
                             <field name="email_id"/>
+                            <field name="age_group"/>
+                            <field name="name_seq" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
                     <group>
@@ -123,10 +125,6 @@
                             </div>
                         </div>
                     </t>
-                    <searchpanel>
-                        <field name="doctor_id" icon="fa-building"/>
-                        <field name="doctor_id" select="multi" icon="fa-tags"/>
-                    </searchpanel>
                 </templates>
             </kanban>
         </field>

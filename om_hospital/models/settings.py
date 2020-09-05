@@ -24,6 +24,7 @@ class HospitalSettings(models.TransientModel):
         notes = ICPSudo.get_param('om_hospital.note')
         product_ids = self.env['ir.config_parameter'].sudo().get_param('om_hospital.product_ids')
         if product_ids:
+            print("product_ids", type(literal_eval(product_ids)))
             res.update(
                 note=notes,
                 product_ids=[(6, 0, literal_eval(product_ids))],

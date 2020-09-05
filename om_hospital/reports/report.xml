@@ -10,6 +10,14 @@
         file="om_hospital.report_patient"/>
 
     <report
+        id="report_patient_card_image"
+        string="Patient Card (Image)"
+        model="hospital.patient"
+        report_type="qweb-pdf"
+        name="om_hospital.report_patient_image"
+        file="om_hospital.report_patient_image"/>
+
+    <report
         id="report_appointment"
         string="Appointment"
         model="hospital.patient"

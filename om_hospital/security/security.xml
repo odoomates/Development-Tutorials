@@ -71,4 +71,13 @@
         <field name="groups" eval="[(4, ref('group_hospital_manager'))]"/>
     </record>
 
+    <record model="ir.rule" id="patient_multi_company_rule">
+        <field name="name">Patient Multi Company Rule</field>
+        <field name="model_id" ref="model_hospital_patient"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+
+
 </odoo>

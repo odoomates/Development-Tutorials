@@ -7,6 +7,9 @@
                 <div class="page">
                     <div class="oe_structure"/>
                     <div class="row">
+                        <span>Patient: <t t-esc="data['patient_id'][1]"/></span>
+                    </div>
+                    <div class="row">
                         <table class="table table-condensed">
                             <thead>
                                 <tr>

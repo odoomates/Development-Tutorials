@@ -83,4 +83,10 @@
         </t>
     </template>
 
+    <template id="report_patient_image" inherit_id="report_patient" primary="True">
+        <xpath expr="//table/tr/td[2]" position="replace">
+        </xpath>
+    </template>
+
+
 </odoo>

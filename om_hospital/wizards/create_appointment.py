@@ -52,6 +52,9 @@ class CreateAppointment(models.TransientModel):
         # creating appointments from the code
         new_appointment = self.env['hospital.appointment'].create(vals)
         context = dict(self.env.context)
+        import logging
+        _logger = logging.getLogger(__name__)
+        _logger.info("account.py cornerstone_account calling")
         context['form_view_initial_mode'] = 'edit'
         return {'type': 'ir.actions.act_window',
                 'view_type': 'form',

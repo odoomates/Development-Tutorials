@@ -19,18 +19,10 @@ class ResPartners(models.Model):
 
 # Inheriting the Sale Order Model and Adding New Field
 # https://www.youtube.com/watch?v=z1Tx7EGkPy0&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=9
-
 class SaleOrderInherit(models.Model):
     _inherit = 'sale.order'
 
-    @api.multi
-    def action_confirm(self):
-        print("odoo mates")
-        res = super(SaleOrderInherit, self).action_confirm()
-        return res
-
     patient_name = fields.Char(string='Patient Name')
-    is_patient = fields.Boolean(string='Is Patient')
 
 
 class ResPartner(models.Model):
@@ -46,45 +38,17 @@ class HospitalPatient(models.Model):
     _description = 'Patient Record'
     _rec_name = 'patient_name'
 
-
-
-    @api.model
-    def get_config_value(self, config_name):
-        print("gggggggggggggggggggggggggggggggggggggggg", config_name)
-        config_value = self.env['ir.config_parameter'].sudo().get_param(config_name)
-        print("base_url", config_value)
-        return config_value
-
-
-
-    def action_patients(self):
-        print("Odoo Mates..............")
-        return {
-            'name': _('Patients Server Action'),
-            'domain': [],
-            'view_type': 'form',
-            'res_model': 'hospital.patient',
-            'view_id': False,
-            'view_mode': 'tree,form',
-            'type': 'ir.actions.act_window',
-        }
-
-
     # Print PDF Report From Button Click in Form
     # https://www.youtube.com/watch?v=Dc8GDj7ygsI&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=67
     @api.multi
     def print_report(self):
         return self.env.ref('om_hospital.report_patient_card').report_action(self)
 
-    @api.multi
-    def print_report_excel(self):
-        return self.env.ref('om_hospital.report_patient_card_xlx').report_action(self)
-
     # Function which is executed using the Cron Job/ Scheduled Action
     # https://www.youtube.com/watch?v=_P_AVSNr6uU&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=52
     @api.model
     def test_cron_job(self):
-        print("Abcd") # print will get printed in the log of pycharm
+        print("Abcd")# print will get printed in the log of pycharm
         #code accordingly to execute the cron
 
     # https://www.youtube.com/watch?v=-1r3WSwtqxQ
@@ -93,16 +57,23 @@ class HospitalPatient(models.Model):
         # name get function for the model executes automatically
         res = []
         for rec in self:
-            res.append((rec.id, '%s - %s' % (rec.name_seq, rec.patient_name)))
+            res.append((rec.id, '%s - %s' % (rec.patient_name, rec.name_seq)))
         return res
+
+    @api.model
+    def _name_search(self, name='', args=None, operator='ilike', limit=100):
+        if args is None:
+            args = []
+        domain = args + ['|', ('name_seq', operator, name), ('patient_name', operator, name)]
+        return super(HospitalPatient, self).search(domain, limit=limit).name_get()
 
     # Add Constrains For a Field
     # https://www.youtube.com/watch?v=ijS-N1CdiWU&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=14
-    @api.constrains('patient_age')
-    def check_age(self):
+    @api.constrains('identification_id')
+    def check_identification_id(self):
         for rec in self:
-            if rec.patient_age < 5:
-                raise ValidationError(_('The Age Must be Greater Than 5..!'))
+            if len(rec.identification_id) != 11:
+                raise ValidationError(_('Must be 11 Characters'))
 
     # Action For Smart Button
     # https://www.youtube.com/watch?v=I93Lr-bprIc&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=19
@@ -202,3 +173,4 @@ class HospitalPatient(models.Model):
         ('fe_male', 'Female'),
     ], string="Doctor Gender")
     patient_name_upper = fields.Char(compute='_compute_upper_name', inverse='_inverse_upper_name')
+    company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.user.company_id)

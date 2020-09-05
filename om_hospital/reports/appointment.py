@@ -19,7 +19,9 @@ class AppointmentReport(models.AbstractModel):
         #         'appointment_date': app.appointment_date
         #     }
         #     appointment_list.append(vals)
+        print("data", data)
         return {
             'doc_model': 'hospital.patient',
             'appointments': appointments,
+            'data': data['form']
         }
